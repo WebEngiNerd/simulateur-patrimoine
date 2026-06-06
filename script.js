@@ -7,11 +7,22 @@ function calculer(event) {
   const duree = parseInt(document.getElementById("duree").value);
   const nbreMois = duree * 12;
   const tauxMensuel = taux / 100 / 12;
+
   const mensualite = parseFloat(
     (montantDuCredit * tauxMensuel) / (1 - (1 + tauxMensuel) ** -nbreMois),
   );
+
+  const coutTotal = mensualite * nbreMois;
+  const coutInterets = coutTotal - montantDuCredit;
+
   document.getElementById("resultat-mensualite").textContent =
     "Mensualité : " + mensualite.toFixed(2) + " euros";
+
+  document.getElementById("cout-interets").textContent =
+    "Coût des intérêts : " + coutInterets.toFixed(2) + " euros";
+
+  document.getElementById("cout-total").textContent =
+    "Coût total : " + coutTotal.toFixed(2) + " euros";
 }
 
 document
