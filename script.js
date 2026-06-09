@@ -12,6 +12,24 @@ function calculer(event) {
     (montantDuCredit * tauxMensuel) / (1 - (1 + tauxMensuel) ** -nbreMois),
   );
 
+  let capitalARembourser = montantDuCredit;
+
+  for (let i = 1; i <= nbreMois; i++) {
+    interetsDuMois = capitalARembourser * tauxMensuel; // remboursement à la banque
+    patrimoineDuMois = mensualite - interetsDuMois; // constitution de son capital
+
+    document.getElementById("corps-tableau").innerHTML += `
+      <tr>
+        <td>${i}</td>
+        <td>${interetsDuMois.toFixed(2)} €</td>
+        <td>${patrimoineDuMois.toFixed(2)} €</td>
+        <td>${capitalARembourser.toFixed(2)} €</td>
+      </tr>
+    `;
+
+    capitalARembourser = capitalARembourser - patrimoineDuMois;
+  }
+
   const coutTotal = mensualite * nbreMois;
   const coutInterets = coutTotal - montantDuCredit;
 
